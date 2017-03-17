@@ -1,0 +1,916 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="html,html5,css,css3,js,javascript " />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="认知分析示例假设页面中有一个元素列表：1234567&amp;lt;ul&amp;gt;  &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;要给所有的li元素绑定onclick事件该怎么做呢？看下面的这段代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 循环绑定事件">
+<meta property="og:url" content="tangxuanzang.me/2017/03/17/2017317-js-foreven/index.html">
+<meta property="og:site_name" content="唐玄奘">
+<meta property="og:description" content="认知分析示例假设页面中有一个元素列表：1234567&amp;lt;ul&amp;gt;  &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;要给所有的li元素绑定onclick事件该怎么做呢？看下面的这段代">
+<meta property="og:image" content="tangxuanzang.me/images/20170317145446.png">
+<meta property="og:image" content="tangxuanzang.me/images/20170317194133.png">
+<meta property="og:updated_time" content="2017-03-17T11:53:14.435Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 循环绑定事件">
+<meta name="twitter:description" content="认知分析示例假设页面中有一个元素列表：1234567&amp;lt;ul&amp;gt;  &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;要给所有的li元素绑定onclick事件该怎么做呢？看下面的这段代">
+<meta name="twitter:image" content="tangxuanzang.me/images/20170317145446.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":true,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'FN0VL18B1M',
+      apiKey: 'fb1c0c55e5196f11b9b5079f5dd2a48a',
+      indexName: 'tangxuanzang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="tangxuanzang.me/2017/03/17/2017317-js-foreven/"/>
+
+
+
+
+
+  <title> JavaScript 循环绑定事件 | 唐玄奘 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61222493";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.2";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500417094");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">唐玄奘</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">唐玄奘-Web前端开发取经之路</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="tangxuanzang.me/2017/03/17/2017317-js-foreven/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tangxuanzang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="唐玄奘">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript 循环绑定事件
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T13:51:07+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/17/2017317-js-foreven/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/17/2017317-js-foreven/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/17/2017317-js-foreven/" class="leancloud_visitors" data-flag-title="JavaScript 循环绑定事件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h2><h3 id="分析示例"><a href="#分析示例" class="headerlink" title="分析示例"></a>分析示例</h3><p>假设页面中有一个元素列表：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure><br>要给所有的li元素绑定onclick事件该怎么做呢？看下面的这段代码绑定能不能成功：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> nodes = <span class="built_in">document</span>.querySelectorAll(<span class="string">"ul li"</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = nodes.length; i &lt; len; i++) &#123;</div><div class="line">  nodes[i].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//dosomething</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"你点击了第"</span> + i + <span class="string">"元素"</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>点第一个元素输出是<code>你点击了第0元素</code>吗?<br>点第二个元素输出是<code>你点击了第1元素</code>吗?<br>…<br><a id="more"></a> </p>
+<h3 id="示例结果"><a href="#示例结果" class="headerlink" title="示例结果"></a>示例结果</h3><p>结果发现你无论点击哪个元素其结果都是：<br><img src="/images/20170317145446.png"></p>
+<h3 id="结果原因"><a href="#结果原因" class="headerlink" title="结果原因"></a>结果原因</h3><p>首先要明白匿名函数、执行环境、作用域链概念：</p>
+<h4 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h4><p>匿名函数就是没有实际名字的函数</p>
+<h5 id="声明匿名函数"><a href="#声明匿名函数" class="headerlink" title="声明匿名函数"></a>声明匿名函数</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">  <span class="comment">//dosomething</span></div><div class="line">  <span class="keyword">return</span> x + y;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="调用匿名函数"><a href="#调用匿名函数" class="headerlink" title="调用匿名函数"></a>调用匿名函数</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">  <span class="comment">//dosomething</span></div><div class="line">  <span class="keyword">return</span> x + y;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(fun(<span class="number">1</span>,<span class="number">2</span>)); <span class="comment">//3</span></div><div class="line"><span class="comment">//或者</span></div><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">  <span class="comment">//dosomething</span></div><div class="line">  <span class="built_in">console</span>.log(x + y);</div><div class="line">&#125;)(<span class="number">1</span>,<span class="number">2</span>) <span class="comment">//3</span></div><div class="line"></div><div class="line"><span class="comment">//又或者</span></div><div class="line">!<span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">  <span class="comment">//dosomething</span></div><div class="line">  <span class="built_in">console</span>.log(x + y);</div><div class="line">&#125;(<span class="number">1</span>,<span class="number">2</span>) <span class="comment">//3</span></div></pre></td></tr></table></figure>
+<p>以上最后一个函数中的<code>!</code>可以任意用<code>+</code>,<code>-</code>来代替,起到函数定义后立即执行的效果,将函数声明转换成函数表达式，消除javascript引擎识别函数表达式和函数声明的歧义，告诉javascript引擎这是一个函数表达式，不是函数声明.</p>
+<h4 id="匿名函数的作用"><a href="#匿名函数的作用" class="headerlink" title="匿名函数的作用"></a>匿名函数的作用</h4><p>1.模块化和可复用的代码,避免数据污染.<br>2.事件处理程序.<br>…</p>
+<h4 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h4><p>执行环境定义了变量或函数有权访问的其他数据，决定了它们各自的行为。每个执行环境都有一个与之关联的变量对象，环境中定义的所有变量和函数都保存在这个对象中。我们编写的代码是无法访问这个对象的，但解析器在处理数据时会在后台使用它。<br>全局执行环境是最外围的一个执行环境，在Web浏览器中，全局执行环境被认为是window对象，因此所有全局变量和函数都是作为window对象的属性和方法来创建的。某个执行环境中的所有代码执行完毕后，该环境就会被销毁，保存在其中的所有变量和函数定义也随之销毁。<br>每个函数都有自己的执行环境，当执行流进入一个函数时，函数的环境就会被推入一个环境栈中，在函数执行后，栈将其环境弹出，将控制权返回给之前的执行环境.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Fn2</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//dosomething</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Fn2执行环境"</span>); </div><div class="line"> &#125;</div><div class="line"> Fn2();</div><div class="line"> <span class="built_in">console</span>.log(<span class="string">"Fn1执行环境"</span>);</div><div class="line">&#125;</div><div class="line">Fn1();</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"全局执行环境"</span>);</div></pre></td></tr></table></figure></p>
+<h4 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h4><p>当代码在一个环境中执行时，会创建变量对象的一个作用域链。<font color="#0099ff" size="3" face="黑体">作用域链的用途，是保证对执行环境有权访问的所有变量和函数进行的有序访问。</font>作用域链的前端，始终都是当前执行的代码所在环境的变量对象，如果这个环境是函数，则将其活动对象作为变量对象。活动变量最开始时只包含一个变量，即arguments对象（这个对象在全局环境中是不存在的）。作用域链中的下一个变量对象来自包含（外部）环境，再下一个变量对象则来自于再下下个包含（外部）环境，这样一直延续到全局执行环境，全局执行环境的变量对象始终都是作用域链中的最后一个对象。<br>标识符解析是沿着作用域链一级一级向上(外)搜索标识符的过程。搜索过程始终从作用域链的前端开始，然后逐级向后回溯，直至找到标识符为止。（比如：在全局执行环境中定义了一个name属性，当在一个函数中使用了未声明的变量name，这时，js在预编译时，会向上回溯直到找到name属性位置。）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> citizen = <span class="string">"老百姓"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> mayor = <span class="string">"市长"</span>;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Fn2</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//这里可以访问president、mayor、citizen</span></div><div class="line">    <span class="keyword">var</span> president = <span class="string">"主席"</span>;</div><div class="line">    <span class="built_in">console</span>.log(president + <span class="string">"对"</span>+ mayor + <span class="string">"、"</span> + citizen + <span class="string">"说：同志们辛苦了!"</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//这里可以访问mayor、citizen</span></div><div class="line">  Fn2();</div><div class="line">  <span class="built_in">console</span>.log(citizen + <span class="string">"、"</span> + mayor + <span class="string">"回应说：首长辛苦了!"</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//这里只能访问citizen</span></div><div class="line">Fn1();</div><div class="line"><span class="built_in">console</span>.log(citizen + <span class="string">"表态：我愿意为粤港澳湾区实现'超车'作出贡献!"</span>);</div></pre></td></tr></table></figure><br>上述代码一共包括三个执行环境：全局执行环境、Fn1()的局部执行环境、Fn2()的局部执行环境。每个环境都可以向上搜索作用域链，以查询变量和函数名;但任何环境都不能通过向下搜索作用域链而进入另一个执行环境。对于这个例子中的Fn2()而言，其作用域链包含3个对象:Fn2()变量对象、Fn1()的变量对象和全局变量对象。Fn2()的局部环境开始时会在自己的变量对象中搜索变量和函数名，如果搜索不到则在搜索上一级作用域链。Fn1()的作用域链会包含两个对象:它自己的变量对象和全局变量对象。这也就是说，它不能访问Fn2()的环境。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>再回过头看示例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> nodes = <span class="built_in">document</span>.querySelectorAll(<span class="string">"ul li"</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = nodes.length; i &lt; len; i++) &#123;</div><div class="line">  nodes[i].addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//dosomething</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"你点击了第"</span> + i + <span class="string">"元素"</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>我们了解了匿名函数，我们在设定一个DOM元素事件处理函数的时候，我们通常都不会为他们定名字，而是赋予它的对应事件引用一个匿名函数。而我们又了解了作用域链，在<code>for</code>循环里面的匿名函数执行<code>nodes[i].addEventListener</code>语句的时候,由于匿名函数里面没有<code>i</code>这个变量，所以这个<code>i</code>他要从父级函数中寻找<code>i</code>，而父级函数中的<code>i</code>在<code>for</code>循环中，当找到这个<code>i</code>的时候，是<code>for</code>循环完毕的<code>i</code>，也就是5.<br>知道了原因，该怎么解决呢？</p>
+<h3 id="解决示例问题"><a href="#解决示例问题" class="headerlink" title="解决示例问题"></a>解决示例问题</h3><p>解决之前又要理解下闭包的概念</p>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> nodes = <span class="built_in">document</span>.querySelectorAll(<span class="string">"ul li"</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = nodes.length; i &lt; len; i++) &#123;</div><div class="line">  !<span class="function"><span class="keyword">function</span>(<span class="params">node,index</span>)</span>&#123;</div><div class="line">  node.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">//dosomething</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"你点击了第"</span> + index + <span class="string">"个元素"</span>);</div><div class="line">  &#125;);</div><div class="line">  &#125;(nodes[i],i);<span class="comment">//使用闭包</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结果：<br><img src="/images/20170317194133.png"></p>
+<h2 id="深化"><a href="#深化" class="headerlink" title="深化"></a>深化</h2><h3 id="还有其他解决方法吗"><a href="#还有其他解决方法吗" class="headerlink" title="还有其他解决方法吗?"></a>还有其他解决方法吗?</h3><h4 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h4><h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><h3 id="当列表项达到100或更多呢？"><a href="#当列表项达到100或更多呢？" class="headerlink" title="当列表项达到100或更多呢？"></a>当列表项达到100或更多呢？</h3><h4 id="事件代理解"><a href="#事件代理解" class="headerlink" title="事件代理解"></a>事件代理解</h4><h4 id="事件代理的基本原理-事件模型"><a href="#事件代理的基本原理-事件模型" class="headerlink" title="事件代理的基本原理(事件模型)"></a>事件代理的基本原理(事件模型)</h4><h4 id="事件代理与普通事件绑定的优劣势"><a href="#事件代理与普通事件绑定的优劣势" class="headerlink" title="事件代理与普通事件绑定的优劣势"></a>事件代理与普通事件绑定的优劣势</h4><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/16/index/" rel="next" title="CSS Sprites">
+                <i class="fa fa-chevron-left"></i> CSS Sprites
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/17/2017317-js-foreven/"
+           data-title="JavaScript 循环绑定事件" data-url="tangxuanzang.me/2017/03/17/2017317-js-foreven/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Tangxuanzang" />
+          <p class="site-author-name" itemprop="name">Tangxuanzang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#认知"><span class="nav-number">1.</span> <span class="nav-text">认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析示例"><span class="nav-number">1.1.</span> <span class="nav-text">分析示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例结果"><span class="nav-number">1.2.</span> <span class="nav-text">示例结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果原因"><span class="nav-number">1.3.</span> <span class="nav-text">结果原因</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#匿名函数"><span class="nav-number">1.3.1.</span> <span class="nav-text">匿名函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#声明匿名函数"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">声明匿名函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#调用匿名函数"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">调用匿名函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#匿名函数的作用"><span class="nav-number">1.3.2.</span> <span class="nav-text">匿名函数的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行环境"><span class="nav-number">1.3.3.</span> <span class="nav-text">执行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域链"><span class="nav-number">1.3.4.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">1.3.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决示例问题"><span class="nav-number">1.4.</span> <span class="nav-text">解决示例问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">1.4.1.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决问题"><span class="nav-number">1.4.2.</span> <span class="nav-text">解决问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深化"><span class="nav-number">2.</span> <span class="nav-text">深化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#还有其他解决方法吗"><span class="nav-number">2.1.</span> <span class="nav-text">还有其他解决方法吗?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#块级作用域"><span class="nav-number">2.1.1.</span> <span class="nav-text">块级作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">其他方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当列表项达到100或更多呢？"><span class="nav-number">2.2.</span> <span class="nav-text">当列表项达到100或更多呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事件代理解"><span class="nav-number">2.2.1.</span> <span class="nav-text">事件代理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件代理的基本原理-事件模型"><span class="nav-number">2.2.2.</span> <span class="nav-text">事件代理的基本原理(事件模型)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件代理与普通事件绑定的优劣势"><span class="nav-number">2.2.3.</span> <span class="nav-text">事件代理与普通事件绑定的优劣势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-唐玄奘"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tangxuanzang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tangxuanzang"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("CykU73dbc0apXIJyyjktdmdg-gzGzoHsz", "OSQgUTXd5YTsiur5VICJzhG7");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
