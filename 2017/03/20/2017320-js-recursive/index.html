@@ -1,0 +1,926 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="html,html5,css,css3,js,javascript " />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="认知经典面试题1，1，2，3，5，8，13，21，34……. 要求用递归的方法算出 第 30 个数是多少？
+解答方法123456function factorial(num) &amp;#123;  return (num &amp;lt;= 2) ? 1 : factorial(num - 1) + factorial(num - 2);&amp;#125;var result = factorial(30);cons">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript  递归">
+<meta property="og:url" content="tangxuanzang.me/2017/03/20/2017320-js-recursive/index.html">
+<meta property="og:site_name" content="唐玄奘">
+<meta property="og:description" content="认知经典面试题1，1，2，3，5，8，13，21，34……. 要求用递归的方法算出 第 30 个数是多少？
+解答方法123456function factorial(num) &amp;#123;  return (num &amp;lt;= 2) ? 1 : factorial(num - 1) + factorial(num - 2);&amp;#125;var result = factorial(30);cons">
+<meta property="og:image" content="tangxuanzang.me/images/20170320140218.png">
+<meta property="og:image" content="tangxuanzang.me/images/20170320143013.png">
+<meta property="og:image" content="tangxuanzang.me/images/20170320150631.png">
+<meta property="og:image" content="tangxuanzang.me/images/20170320151232.png">
+<meta property="og:image" content="tangxuanzang.me/images/20170320153928.png">
+<meta property="og:image" content="tangxuanzang.me/images/20170320155535.png">
+<meta property="og:updated_time" content="2017-03-20T08:09:31.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript  递归">
+<meta name="twitter:description" content="认知经典面试题1，1，2，3，5，8，13，21，34……. 要求用递归的方法算出 第 30 个数是多少？
+解答方法123456function factorial(num) &amp;#123;  return (num &amp;lt;= 2) ? 1 : factorial(num - 1) + factorial(num - 2);&amp;#125;var result = factorial(30);cons">
+<meta name="twitter:image" content="tangxuanzang.me/images/20170320140218.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":true,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'FN0VL18B1M',
+      apiKey: 'fb1c0c55e5196f11b9b5079f5dd2a48a',
+      indexName: 'tangxuanzang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="tangxuanzang.me/2017/03/20/2017320-js-recursive/"/>
+
+
+
+
+
+  <title> JavaScript  递归 | 唐玄奘 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61222493";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<script>
+  	var _mtac = {};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.2";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500417094");
+
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
+</script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">唐玄奘</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">唐玄奘-Web前端开发取经之路</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="tangxuanzang.me/2017/03/20/2017320-js-recursive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tangxuanzang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="唐玄奘">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript  递归
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T13:21:15+08:00">
+                2017-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/20/2017320-js-recursive/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/20/2017320-js-recursive/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/20/2017320-js-recursive/" class="leancloud_visitors" data-flag-title="JavaScript  递归">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h2><h3 id="经典面试题"><a href="#经典面试题" class="headerlink" title="经典面试题"></a>经典面试题</h3><p>1，1，2，3，5，8，13，21，34……. 要求用递归的方法算出 第 30 个数是多少？</p>
+<h3 id="解答方法"><a href="#解答方法" class="headerlink" title="解答方法"></a>解答方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">2</span>) ? <span class="number">1</span> : factorial(num - <span class="number">1</span>) + factorial(num - <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> result = factorial(<span class="number">30</span>);</div><div class="line"><span class="built_in">console</span>.log(result);<span class="comment">//832040</span></div></pre></td></tr></table></figure>
+<p>递归即是程序在执行过程中不断调用自身，而且也有一个明确的结束条件，所以迎刃而解.表面上看这个函数并没有什么问题.<br><a id="more"></a> </p>
+<h3 id="假设"><a href="#假设" class="headerlink" title="假设"></a>假设</h3><p>将<code>factorial()</code>函数保存在<code>anotherFactorial</code>变量中，<code>factorial</code>变量设置为<code>null</code>，会怎么样呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">2</span>) ? <span class="number">1</span> : factorial(num - <span class="number">1</span>) + factorial(num - <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> anotherFactorial = factorial;<span class="comment">//将factorial()函数保存在anotherFactorial变量中</span></div><div class="line">factorial = <span class="literal">null</span>;<span class="comment">//factorial变量设置为null</span></div><div class="line"><span class="keyword">var</span> result = anotherFactorial(<span class="number">30</span>);<span class="comment">//Error</span></div><div class="line"><span class="built_in">console</span>.log(result);</div></pre></td></tr></table></figure><br><img src="/images/20170320140218.png"><br>在调用<code>anotherFactorial()</code>时，由于必须执行<code>factorial()</code>,而<code>factorial</code>不再是函数，所有出现了错误.</p>
+<h3 id="arguments-callee"><a href="#arguments-callee" class="headerlink" title="arguments.callee()"></a>arguments.callee()</h3><p><code>arguments.callee</code>是一个指向正在执行的函数指针，通过使用<code>arguments.callee</code>代替函数名，可以确保无论怎样调用函数都不会出现问题，因此可以用它来对函数的递归调用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">2</span>) ? <span class="number">1</span> : <span class="built_in">arguments</span>.callee(num - <span class="number">1</span>) + <span class="built_in">arguments</span>.callee(num - <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> anotherFactorial = factorial;<span class="comment">//将factorial()函数保存在anotherFactorial变量中</span></div><div class="line">factorial = <span class="literal">null</span>;<span class="comment">//factorial变量设置为null</span></div><div class="line"><span class="keyword">var</span> result = anotherFactorial(<span class="number">30</span>);<span class="comment">//832040</span></div><div class="line"><span class="built_in">console</span>.log(result);</div></pre></td></tr></table></figure><br>使用<code>arguments.callee</code>比使用函数名更保险，但ECMAScript5 的 Strict Mode 中为什么会禁止使用<code>arguments.callee</code>?<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</div><div class="line"><span class="meta">  "use strict"</span>;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">2</span>) ? <span class="number">1</span> : <span class="built_in">arguments</span>.callee(num - <span class="number">1</span>) + <span class="built_in">arguments</span>.callee(num - <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> anotherFactorial = factorial;<span class="comment">//将factorial()函数保存在anotherFactorial变量中</span></div><div class="line">factorial = <span class="literal">null</span>;<span class="comment">//factorial变量设置为null</span></div><div class="line"><span class="keyword">var</span> result = anotherFactorial(<span class="number">30</span>);<span class="comment">//出错</span></div><div class="line"><span class="built_in">console</span>.log(result);</div></pre></td></tr></table></figure><br><img src="/images/20170320143013.png"></p>
+<h2 id="深化"><a href="#深化" class="headerlink" title="深化"></a>深化</h2><h3 id="兼容模式解决"><a href="#兼容模式解决" class="headerlink" title="兼容模式解决"></a>兼容模式解决</h3><p>利用命名函数表达式来达到相同结果，创建一个名为<code>f()</code>的命名函数表达式，然后将它赋值给<code>factorial</code>,即便把函数赋值给了另外一个变量,函数的名字<code>f</code>仍然有效，所以递归照样能完成：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> factorial = (<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">2</span>) ? <span class="number">1</span> : f(num - <span class="number">1</span>) + f(num - <span class="number">2</span>);</div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> anotherFactorial = factorial; <span class="comment">//将factorial()函数保存在anotherFactorial变量中</span></div><div class="line">factorial = <span class="literal">null</span>; <span class="comment">//factorial变量设置为null</span></div><div class="line"><span class="keyword">var</span> result = anotherFactorial(<span class="number">30</span>); <span class="comment">//832040</span></div><div class="line"><span class="built_in">console</span>.log(result);</div></pre></td></tr></table></figure></p>
+<h3 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h3><p>上面的例子中每次调用会调用自身函数两次，所以分别测试下上面两种不同方案执行时间</p>
+<h4 id="arguments-callee执行时间"><a href="#arguments-callee执行时间" class="headerlink" title="arguments.callee执行时间"></a>arguments.callee执行时间</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">2</span>) ? <span class="number">1</span> : <span class="built_in">arguments</span>.callee(num - <span class="number">1</span>) + <span class="built_in">arguments</span>.callee(num - <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.time(<span class="string">"arguments.callee"</span>);</div><div class="line">  <span class="built_in">console</span>.log(factorial(num));</div><div class="line">  <span class="built_in">console</span>.timeEnd(<span class="string">"arguments.callee"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/images/20170320150631.png"></p>
+<h4 id="命名函数表达式执行时间"><a href="#命名函数表达式执行时间" class="headerlink" title="命名函数表达式执行时间"></a>命名函数表达式执行时间</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> factorial = (<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">2</span>) ? <span class="number">1</span> : f(num - <span class="number">1</span>) + f(num - <span class="number">2</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.time(<span class="string">"f"</span>);</div><div class="line">  <span class="built_in">console</span>.log(factorial(num));</div><div class="line">  <span class="built_in">console</span>.timeEnd(<span class="string">"f"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/images/20170320151232.png"></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>命名函数表达式执行时间稍微比<code>arguments.callee</code>快，但两种方法当计算一些稍大的数时，运行时间显得格外漫长，或者有可能导致栈溢出.</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="literal">undefined</span>,<span class="number">1</span>, <span class="number">1</span>];</div><div class="line"><span class="keyword">var</span> factorial = (<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> n = arr[num];</div><div class="line">  <span class="keyword">return</span> n ? n : (arr[num] = f(num - <span class="number">1</span>) + f(num - <span class="number">2</span>));</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.time(<span class="string">"f"</span>);</div><div class="line">  <span class="built_in">console</span>.log(factorial(num));</div><div class="line">  <span class="built_in">console</span>.timeEnd(<span class="string">"f"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/images/20170320153928.png"></p>
+<h4 id="转换为迭代循环"><a href="#转换为迭代循环" class="headerlink" title="转换为迭代循环"></a>转换为迭代循环</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> x = <span class="number">1</span>,</div><div class="line">      y = <span class="number">1</span>,</div><div class="line">      i = <span class="number">2</span>,</div><div class="line">      t;</div><div class="line">  <span class="keyword">while</span> (i &lt; n) &#123;</div><div class="line">    t = y;</div><div class="line">    y = x + y;</div><div class="line">    x = t;</div><div class="line">    i++;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> y;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params">num</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.time(<span class="string">"f"</span>);</div><div class="line">  <span class="built_in">console</span>.log(factorial(num));</div><div class="line">  <span class="built_in">console</span>.timeEnd(<span class="string">"f"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/images/20170320155535.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>递归的实现还算简单，但做这类较复杂的递归，考虑到性能还是很有必要.如果每次仅仅递归调用自身一次,像用递归实现阶乘,虽然没太大问题,但还是要考虑到兼容.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> factorial = (<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> (num &lt;= <span class="number">1</span>) ? <span class="number">1</span> : num * f(num - <span class="number">1</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/19/2017319-js-this/" rel="next" title="JavaScript  this">
+                <i class="fa fa-chevron-left"></i> JavaScript  this
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/20/2017320-js-recursive/"
+           data-title="JavaScript  递归" data-url="tangxuanzang.me/2017/03/20/2017320-js-recursive/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Tangxuanzang" />
+          <p class="site-author-name" itemprop="name">Tangxuanzang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#认知"><span class="nav-number">1.</span> <span class="nav-text">认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#经典面试题"><span class="nav-number">1.1.</span> <span class="nav-text">经典面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解答方法"><span class="nav-number">1.2.</span> <span class="nav-text">解答方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#假设"><span class="nav-number">1.3.</span> <span class="nav-text">假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arguments-callee"><span class="nav-number">1.4.</span> <span class="nav-text">arguments.callee()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深化"><span class="nav-number">2.</span> <span class="nav-text">深化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容模式解决"><span class="nav-number">2.1.</span> <span class="nav-text">兼容模式解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能问题"><span class="nav-number">2.2.</span> <span class="nav-text">性能问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#arguments-callee执行时间"><span class="nav-number">2.2.1.</span> <span class="nav-text">arguments.callee执行时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名函数表达式执行时间"><span class="nav-number">2.2.2.</span> <span class="nav-text">命名函数表达式执行时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">2.3.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用缓存"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转换为迭代循环"><span class="nav-number">2.3.2.</span> <span class="nav-text">转换为迭代循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-唐玄奘"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tangxuanzang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tangxuanzang"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("CykU73dbc0apXIJyyjktdmdg-gzGzoHsz", "OSQgUTXd5YTsiur5VICJzhG7");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+</body>
+</html>
